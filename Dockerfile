@@ -1,21 +1,16 @@
 FROM ubuntu:bionic
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
-ARG DEBIAN_FRONTEND="noninteractive"
-ARG INSECURE_PUBKEY="https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub"
+
+ARG VERSION="2.2.4"
 
 RUN apt update -qq && \
   apt dist-upgrade -y && \
-  apt install -y ca-certificates locales openssh-server sudo && \
-  locale-gen en_US.UTF-8 && \
-  useradd -d /home/vagrant -m -s /bin/bash vagrant && \
-  echo vagrant:vagrant | chpasswd && \
-  echo 'vagrant ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
-  install -d -o vagrant -g vagrant -m0700 /home/vagrant/.ssh && \
-  install -d /run/sshd && \
-  rm /etc/dpkg/dpkg.cfg.d/excludes
+  apt install -y curl ca-certificates && \
+  curl -o /tmp/vagrant.deb -L https://releases.hashicorp.com/vagrant/${VERSION}/vagrant_${VERSION}_x86_64.deb && \
+  dpkg -i /tmp/vagrant.deb && \
+  rm /tmp/vagrant.deb && \
+  apt remove -y --purge curl ca-certificates && \
+  apt-get autoremove -y
 
-ADD --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
-
-EXPOSE 22
-CMD ["/usr/sbin/sshd","-D","-o","UseDNS=no","-o","UsePAM=no","-o","PasswordAuthentication=yes","-o","UsePrivilegeSeparation=no","-o","PidFile=/tmp/sshd.pid"]
+ENTRYPOINT ["/usr/bin/vagrant"]
