@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -6,7 +6,7 @@ ARG INSECURE_PUBKEY="https://raw.githubusercontent.com/hashicorp/vagrant/master/
 
 RUN apt update -qq && \
   apt dist-upgrade -y && \
-  apt install -y ca-certificates locales openssh-server sudo && \
+  apt install -y --no-install-recommends ca-certificates locales openssh-server sudo && \
   locale-gen en_US.UTF-8 && \
   useradd -d /home/vagrant -m -s /bin/bash vagrant && \
   echo vagrant:vagrant | chpasswd && \
