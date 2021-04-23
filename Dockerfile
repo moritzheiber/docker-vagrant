@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:hirsute
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 ARG DEBIAN_FRONTEND="noninteractive"
