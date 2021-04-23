@@ -2,7 +2,7 @@
 
 set -Eeu -o pipefail
 
-IMAGE_NAME="caddy"
+IMAGE_NAME="vagrant"
 REPOSITORY="ghcr.io/moritzheiber"
 GIT_BRANCH=$(git branch --show-current)
 TARGET="latest"
