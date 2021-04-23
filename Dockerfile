@@ -1,6 +1,8 @@
 FROM ubuntu:hirsute
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
+LABEL org.opencontainers.image.source "https://github.com/moritzheiber/docker-vagrant"
+
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG INSECURE_PUBKEY="https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub"
 
