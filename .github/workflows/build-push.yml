@@ -1,0 +1,24 @@
+name: build-push
+on:
+  push:
+    branches:
+      - main
+      - focal
+      - hirsute
+    tags-ignore:
+      - "*"
+
+jobs:
+  build-test-push:
+    if: "!contains(github.event.commits[0].message, '[ci skip]')"
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: ./run build
+      - name: push
+        env:
+          GHCR_ACCESS_TOKEN: ${{ secrets.GHCR_ACCESS_TOKEN }}
+        run: |
+          echo ${GHCR_ACCESS_TOKEN} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
+          ./run push
