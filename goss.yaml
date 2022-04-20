@@ -1,0 +1,31 @@
+file:
+  /etc/os-release:
+    exists: true
+    contains:
+      - "ubuntu"
+  /home/vagrant/.ssh/authorized_keys:
+    exists: true
+    owner: "vagrant"
+    group: "vagrant"
+    filetype: "file"
+    mode: "0600"
+user:
+  vagrant:
+    exists: true
+    groups:
+      - vagrant
+    home: /home/vagrant
+    shell: /bin/bash
+process:
+  sshd:
+    running: true
+    skip: false
+port:
+  tcp:22:
+    listening: true
+    ip:
+      - 0.0.0.0
+    skip: false
+package:
+  sudo:
+    installed: true
