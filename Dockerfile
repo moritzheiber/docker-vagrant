@@ -1,4 +1,4 @@
-FROM ubuntu:impish
+FROM ubuntu:impish-20220404
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 LABEL org.opencontainers.image.source "https://github.com/moritzheiber/docker-vagrant"
@@ -20,4 +20,4 @@ RUN apt update -qq && \
 ADD --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
 
 EXPOSE 22
-CMD ["/usr/sbin/sshd","-D","-o","UseDNS=no","-o","UsePAM=no","-o","PasswordAuthentication=yes","-o","UsePrivilegeSeparation=no","-o","PidFile=/tmp/sshd.pid"]
+CMD ["/usr/sbin/sshd","-D","-o","UseDNS=no","-o","UsePAM=no","-o","PasswordAuthentication=yes","-o","UsePrivilegeSeparation=no","-o","PidFile=/run/sshd/sshd.pid"]
