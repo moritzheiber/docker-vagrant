@@ -1,4 +1,4 @@
-FROM ubuntu:impish-20220415
+FROM ubuntu:impish-20220427
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 LABEL org.opencontainers.image.source "https://github.com/moritzheiber/docker-vagrant"
