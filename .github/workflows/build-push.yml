@@ -27,7 +27,7 @@ jobs:
         with:
           push: false
           load: true
-          tags: ${{ steps.tag.outputs.tag }}
+          tags: ${{ steps.tag.outputs.name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - run: dgoss run --rm ${{ steps.tag.outputs.name }}
