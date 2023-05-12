@@ -20,7 +20,7 @@ jobs:
       - name: Set branch name
         id: branch
         run: echo "branch_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
-      - uses: e1himself/goss-installation-action
+      - uses: e1himself/goss-installation-action@v1.1.0
       - name: Build and test
         uses: docker/build-push-action@v4
         with:
