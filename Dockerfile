@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:lunar
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 LABEL org.opencontainers.image.source "https://github.com/moritzheiber/docker-vagrant"
@@ -17,7 +17,7 @@ RUN apt-get update -qq && \
   install -d /run/sshd && \
   rm /etc/dpkg/dpkg.cfg.d/excludes
 
-COPY --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
+ADD --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D","-o","UseDNS=no","-o","UsePAM=no","-o","PasswordAuthentication=yes","-o","UsePrivilegeSeparation=no","-o","PidFile=/run/sshd/sshd.pid"]
