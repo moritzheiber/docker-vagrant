@@ -15,20 +15,26 @@ jobs:
       contents: read
       packages: write
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3.5.2
-    - name: Set branch name
-      id: branch
-      run: echo "branch_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
-    - name: Login to GHCR
-      uses: docker/login-action@v2
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build and push
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        push: true
-      tags: "ghcr.io/moritzheiber/vagrant:${{ steps.branch.outputs.branch_name }}"
+      - name: Checkout
+        uses: actions/checkout@v3.5.2
+      - name: Set branch name
+        id: branch
+        run: echo "branch_name=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
+      - uses: e1himself/goss-installation-action
+      - name: Build and test
+        uses: docker/build-push-action@v4
+        with:
+          push: false
+          tags: "ghcr.io/moritzheiber/vagrant:${{ steps.branch.outputs.branch_name }}"
+      - run: dgoss run --rm docker-vagrant:lunar
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: "ghcr.io/moritzheiber/vagrant:${{ steps.branch.outputs.branch_name }}"
