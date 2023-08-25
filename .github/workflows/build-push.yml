@@ -16,7 +16,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.6.0
       - name: Set tag name
         id: tag
         run: echo "name=ghcr.io/moritzheiber/vagrant:${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
