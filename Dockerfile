@@ -17,7 +17,9 @@ RUN apt-get update -qq && \
   install -d /run/sshd && \
   rm /etc/dpkg/dpkg.cfg.d/excludes
 
-COPY --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
+# hadolint doesn't understand the variable is a URL
+# hadolint ignore=DL3020
+ADD --chown=vagrant:vagrant ${INSECURE_PUBKEY} /home/vagrant/.ssh/authorized_keys
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D","-o","UseDNS=no","-o","UsePAM=no","-o","PasswordAuthentication=yes","-o","UsePrivilegeSeparation=no","-o","PidFile=/run/sshd/sshd.pid"]
