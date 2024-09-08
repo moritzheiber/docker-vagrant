@@ -1,11 +1,14 @@
-FROM ubuntu:mantic
+FROM ubuntu:noble
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
-LABEL org.opencontainers.image.source "https://github.com/moritzheiber/docker-vagrant"
+LABEL org.opencontainers.image.source="https://github.com/moritzheiber/docker-vagrant"
 
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG INSECURE_PUBKEY="https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub"
 
+SHELL ["/bin/bash","-o","pipefail","-c"]
+
+# hadolint ignore=DL3005,DL4006,DL3008,DL3009
 RUN apt-get update -qq && \
   apt-get dist-upgrade -y && \
   apt-get install -y --no-install-recommends ca-certificates locales openssh-server sudo && \
