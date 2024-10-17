@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:oracular
 
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 LABEL org.opencontainers.image.source="https://github.com/moritzheiber/docker-vagrant"

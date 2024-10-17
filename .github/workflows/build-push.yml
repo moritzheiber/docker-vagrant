@@ -4,8 +4,8 @@ on:
     branches:
       - main
       - focal
-      - lunar
       - noble
+      - oracular
     tags-ignore:
       - "*"
 
