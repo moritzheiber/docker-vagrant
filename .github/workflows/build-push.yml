@@ -6,6 +6,7 @@ on:
       - focal
       - noble
       - oracular
+      - plucky
     tags-ignore:
       - "*"
 
